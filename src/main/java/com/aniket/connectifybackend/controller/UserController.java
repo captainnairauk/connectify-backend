@@ -1,6 +1,8 @@
 package com.aniket.connectifybackend.controller;
 
 import com.aniket.connectifybackend.models.User;
+import com.aniket.connectifybackend.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -8,6 +10,21 @@ import java.util.List;
 
 @RestController
 public class UserController {
+    @Autowired
+    UserRepository userRepository;
+
+    @PostMapping("/users")
+    public User createUser(@RequestBody User user){
+        User newUser = new User();
+        newUser.setId(user.getId());
+        newUser.setFirstName(user.getFirstName());
+        newUser.setLastName(user.getLastName());
+        newUser.setEmail(user.getEmail());
+        newUser.setPassword(user.getPassword());
+
+        User savedUser = userRepository.save(newUser);
+        return savedUser;
+    }
     @GetMapping("/users")
     public List<User> getUsers(){
         List<User> users = new ArrayList<>();
@@ -23,19 +40,6 @@ public class UserController {
         User user1 = new User(1, "aniket", "kaimal", "aniket.kaimal@gmail.com", "12345");
         user1.setId(id);
         return user1;
-    }
-
-    @PostMapping("/users")
-    public User createUser(@RequestBody User user){
-        User newUser = new User(
-                user.getId(),
-                user.getFirstName(),
-                user.getLastName(),
-                user.getEmail(),
-                user.getPassword()
-        );
-
-        return newUser;
     }
 
     @PutMapping("/users")
