@@ -20,6 +20,7 @@ public class User {
     private String gender;
     private List<Integer> followers = new ArrayList<>();
     private List<Integer> followings = new ArrayList<>();
+    private List<Post> savedPost= new ArrayList<>();
 
     public User(){
 
@@ -102,5 +103,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Post> getSavedPost() {
+        return savedPost;
+    }
+
+    public void setSavedPost(List<Post> savedPost) {
+        this.savedPost = savedPost;
     }
 }
