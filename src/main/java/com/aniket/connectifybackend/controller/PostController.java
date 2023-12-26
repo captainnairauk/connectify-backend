@@ -41,12 +41,12 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    public ResponseEntity<List<Post>> findAllPost(@PathVariable Integer userId){
+    public ResponseEntity<List<Post>> findAllPost(){
         List<Post> posts = postService.findAllPost();
         return new ResponseEntity<List<Post>>(posts, HttpStatus.OK);
     }
 
-    @PutMapping("/posts/{postId}/user/{userId}")
+    @PutMapping("/posts/save/{postId}/user/{userId}")
     public ResponseEntity<Post> savedPostHandler(@PathVariable Integer postId, @PathVariable Integer userId) throws Exception {
         Post post = postService.savedPost(postId, userId);
         return new ResponseEntity<Post>(post, HttpStatus.ACCEPTED);

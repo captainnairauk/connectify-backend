@@ -1,9 +1,7 @@
 package com.aniket.connectifybackend.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +18,8 @@ public class User {
     private String gender;
     private List<Integer> followers = new ArrayList<>();
     private List<Integer> followings = new ArrayList<>();
+    @JsonIgnore
+    @ManyToMany
     private List<Post> savedPost= new ArrayList<>();
 
     public User(){
