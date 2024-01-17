@@ -1,5 +1,6 @@
 package com.aniket.connectifybackend.controller;
 
+import com.aniket.connectifybackend.exceptions.UserException;
 import com.aniket.connectifybackend.models.User;
 import com.aniket.connectifybackend.repository.UserRepository;
 import com.aniket.connectifybackend.service.UserService;
@@ -24,20 +25,20 @@ public class UserController {
     }
 
     @GetMapping("/api/users/{userId}")
-    public User getUsersById(@PathVariable("userId") Integer id) throws Exception{
+    public User getUsersById(@PathVariable("userId") Integer id) throws UserException{
         User user = userService.findUserById(id);
         return user;
     }
 
     @PutMapping("/api/users")
-    public User updateUser(@RequestHeader("Authorization") String jwt, @RequestBody User user) throws Exception {
+    public User updateUser(@RequestHeader("Authorization") String jwt, @RequestBody User user) throws UserException {
         User reqUser = userService.findUserByJwt(jwt);
         User updatedUser = userService.updateUser(user, reqUser.getId());
         return updatedUser;
     }
 
     @PutMapping("/api/users/follow/{userId2}")
-    public User followUserHandler(@RequestHeader("Authorization") String jwt, @PathVariable Integer userId2) throws Exception {
+    public User followUserHandler(@RequestHeader("Authorization") String jwt, @PathVariable Integer userId2) throws UserException {
         User reqUser = userService.findUserByJwt(jwt);
         User user = userService.followUser(reqUser.getId(), userId2);
         return user;
